@@ -1,7 +1,7 @@
 let taskText = document.querySelector(".task-text");
 let taskBtn = document.querySelector(".task-btn");
 let tasksList = document.querySelector(".tasks-list");
-let message=document.querySelector('.message')
+let message = document.querySelector(".message");
 // get all added tasks from local storage
 let getTasks = JSON.parse(localStorage.getItem("tasks"));
 let tasks = getTasks ? [...getTasks] : [];
@@ -36,20 +36,20 @@ function addNewTask() {
     completed: false,
   };
   tasks.push(newTask);
-  updateTaskIds();
+  taskId();
   localStorage.setItem("tasks", JSON.stringify(tasks));
   drawTasks(tasks);
   taskText.value = "";
-  showMessage('Task added successfuly')
+  showMessage("Task added successfuly");
 }
 /*       delete task        */
 const deleteTask = (index) => {
   if (confirm("Are you want to delete this task?")) {
     tasks.splice(index, 1);
-    updateTaskIds();
+    taskId();
     localStorage.setItem("tasks", JSON.stringify(tasks));
     drawTasks(tasks);
-    showMessage('Task deleted successfully')
+    showMessage("Task deleted successfully");
   }
 };
 // update task
@@ -59,27 +59,27 @@ const editTask = (index) => {
     tasks[index].title = newTitle;
     localStorage.setItem("tasks", JSON.stringify(tasks));
     drawTasks(tasks);
-    showMessage('Task updated successfully')
+    showMessage("Task updated successfully");
   }
 };
 // complete task
 const completedTask = (index) => {
-  tasks[index].completed=!tasks[index].completed
+  tasks[index].completed = !tasks[index].completed;
   localStorage.setItem("tasks", JSON.stringify(tasks));
   drawTasks(tasks);
 };
-//  show message function 
-function showMessage(msg){
-  message.innerHTML=msg
-  message.style.display='block'
-  setTimeout(()=>{
-    message.innerHTML=''
-    message.style.display='none'
-  },2000)
-}
-function updateTaskIds() {
+//  show message function
+const showMessage = (msg) => {
+  message.innerHTML = msg;
+  message.style.display = "block";
+  setTimeout(() => {
+    message.innerHTML = "";
+    message.style.display = "none";
+  }, 2000);
+};
+const taskId = () => {
   tasks = tasks.map((task, index) => ({
     ...task,
     id: index + 1,
   }));
-}
+};
